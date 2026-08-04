@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../constants/portfolio_constants.dart';
 
@@ -9,12 +8,13 @@ class SkillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final isDesktop = size.width > 900;
+    final isMobile = size.width < 600;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? size.width * 0.1 : 24,
-        vertical: 80,
+        horizontal: isDesktop ? size.width * 0.1 : (isMobile ? 16 : 24),
+        vertical: 60,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -23,10 +23,11 @@ class SkillsSection extends StatelessWidget {
             shaderCallback: (bounds) => const LinearGradient(
               colors: [Color(0xff8a2be2), Color(0xff00f5d4)],
             ).createShader(bounds),
-            child: const Text(
+            child: Text(
               'Technical Expertise',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 36,
+                fontSize: isMobile ? 28 : 36,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -37,20 +38,21 @@ class SkillsSection extends StatelessWidget {
             'Proficiency levels in software engineering tools, architectures, and languages',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: isMobile ? 14 : 16,
               color: Colors.white.withValues(alpha: 0.6),
             ),
           ),
-          const SizedBox(height: 56),
+          const SizedBox(height: 40),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: PortfolioConstants.coreSkills.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: isDesktop ? 2 : 1,
-              crossAxisSpacing: 32,
-              mainAxisSpacing: 32,
-              mainAxisExtent: 100,
+              crossAxisSpacing: 24,
+              mainAxisSpacing: 20,
+              // رفعنا الارتفاع قليلاً ليعطي مرونة للنصوص الطويلة على الموبايل
+              mainAxisExtent: isMobile ? 115 : 100,
             ),
             itemBuilder: (context, index) {
               final skill = PortfolioConstants.coreSkills[index];
@@ -90,14 +92,14 @@ class _SkillBarTileState extends State<SkillBarTile> {
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface.withValues(alpha: _isHovered ? 0.8 : 0.4),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: _isHovered
                 ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.2)
-                : Colors.white.withValues(alpha: 0.02),
+                : Colors.white.withValues(alpha: 0.05),
           ),
         ),
         child: Column(
@@ -106,15 +108,23 @@ class _SkillBarTileState extends State<SkillBarTile> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  widget.name,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                // 🛠️ التعديل الجوهري: تغليف اسم المهارة بـ Expanded لكي يحسب مساحته بدقة ولا يحدث Overflow
+                Expanded(
+                  child: Text(
+                    widget.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      height: 1.2,
+                    ),
                   ),
                 ),
+                const SizedBox(width: 12),
                 Text(
                   '${widget.level}%',
                   style: TextStyle(
@@ -143,7 +153,7 @@ class _SkillBarTileState extends State<SkillBarTile> {
                       duration: const Duration(milliseconds: 800),
                       curve: Curves.easeOutCubic,
                       height: 6,
-                      width: _isHovered ? targetWidth : 0,
+                      width: targetWidth, // جعلنا الشريط يعرض النسبة دائماً وتتوهج عند الـ Hover
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3),
                         gradient: const LinearGradient(
@@ -152,7 +162,7 @@ class _SkillBarTileState extends State<SkillBarTile> {
                         boxShadow: [
                           if (_isHovered)
                             BoxShadow(
-                              color: const Color(0xff00f5d4).withValues(alpha: 0.3),
+                              color: const Color(0xff00f5d4).withValues(alpha: 0.4),
                               blurRadius: 8,
                               offset: const Offset(0, 2),
                             ),
