@@ -3,19 +3,19 @@ class PortfolioConstants {
   static const String fullName = 'Reham Alshiekh Saado';
   static const String title = 'Flutter Software Engineer';
   static const String subTitle = 'Flutter Software Engineer';
-  static const String bio = 'Informatics Engineering Graduate specialized in building scalable, high-performance cross-platform mobile applications. Expert in Clean Architecture, BLoC/Cubit, Supabase (RLS & Realtime Streams), and direct AI integration (Gemini AI) backed by robust CI/CD pipelines.';
+  static const String bio = 'Informatics Engineering Graduate specialized in building scalable, high-performance cross-platform mobile applications. Expert in Clean Architecture, BLoC/Cubit, Supabase (RLS & Realtime Streams), and automated AI workflows (n8n & Gemini AI) backed by robust CI/CD pipelines.';
   static const String location = 'Aleppo, Syria';
   static const String email = 'rehamsaado37@gmail.com';
 
   // 2. Social Media & Freelance Links
   static const String githubUrl = 'https://github.com/rehamsaado';
   static const String linkedinUrl = 'https://linkedin.com/in/rehamsaado';
-  static const String resumePdfUrl = 'https://github.com/rehamsaado/portfolio/blob/main/assets/files/rehamsaado_flutter.pdf?raw=true';
+  static const String resumePdfUrl = 'https://raw.githubusercontent.com/rehamsaado/Portfolio/main/assets/files/rehamsaado_flutter.pdf';
 
-  // 3. Quick Statistics
+  // 3. Quick Statistics / Highlights
   static const List<Map<String, String>> stats = [
     {'number': 'Graduate', 'label': 'Informatics Engineer'},
-    {'number': '130+', 'label': 'Codeforces Solved'},
+    {'number': 'Python', 'label': 'Problem Solving & CP'},
     {'number': 'AI Powered', 'label': 'Smart Workflows'},
     {'number': 'CI/CD', 'label': 'Automated Pipelines'},
   ];
@@ -27,10 +27,10 @@ class PortfolioConstants {
     {'name': 'State Management (BLoC / Cubit)', 'level': 95},
     {'name': 'Backend & Realtime (Supabase, PostgreSQL & RLS)', 'level': 90},
     {'name': 'Networking & APIs (Dio, RESTful APIs, JSON)', 'level': 90},
-    {'name': 'Competitive Programming (130+ Python Challenges)', 'level': 60},
+    {'name': 'Problem Solving & Logic (Codeforces / Python)', 'level': 85},
   ];
 
-  // 5. Freelance Professional Services
+  // 5. Freelance Professional Services (ماذا أقدم)
   static const List<Map<String, dynamic>> services = [
     {
       'title': 'Cross-Platform Mobile App Development',
@@ -38,15 +38,14 @@ class PortfolioConstants {
       'icon': 'phone_android',
     },
     {
-      'title': 'AI Feature Integration & Smart Services',
-      'description': 'Integrating dynamic AI capabilities (Gemini AI, Voice Interaction, Speech-to-Text) directly into mobile applications.',
-      'icon': 'smart_toy',
-    },
-
-    {
       'title': 'Backend Integration & Realtime Databases',
-      'description': 'Integrating RESTful APIs, Supabase real-time streaming, Storage, and Row Level Security (RLS).',
+      'description': 'Integrating RESTful APIs via Dio, Supabase real-time streaming, Storage, and Row Level Security (RLS).',
       'icon': 'storage',
+    },
+    {
+      'title': 'CI/CD Pipelines & Automated Workflows',
+      'description': 'Automating build, testing, and deployment processes using GitHub Actions to accelerate delivery and ensure high code quality.',
+      'icon': 'rocket_launch',
     },
   ];
 
@@ -54,10 +53,10 @@ class PortfolioConstants {
   static const List<Map<String, dynamic>> projects = [
     {
       'title': 'Rego - Smart Restaurant Management Ecosystem',
-      'description': 'A dual Flutter application ecosystem (Admin Dashboard & Customer Table App). Powered by Gemini AI for dynamic calorie calculations, and an active AI Voice Waiter querying Supabase via Speech-to-Text.',
+      'description': 'A dual Flutter application ecosystem (Admin Dashboard & Customer Table App). Features automated n8n workflows integrated with Gemini AI for dynamic nutrition scoring and meal analysis.',
       'architecture': 'Clean Architecture (Multi-app Ecosystem) adhering to strict SOLID principles and Repository Pattern.',
-      'stateManagement': 'BLoC / Cubit for synchronizing ordering states, voice commands, and real-time backend updates.',
-      'techUsed': ['Flutter', 'Supabase (RLS)', 'Gemini AI', 'BLoC', 'Clean Architecture'],
+      'stateManagement': 'BLoC / Cubit for synchronizing ordering states and real-time backend updates.',
+      'techUsed': ['Flutter', 'Supabase (RLS)', 'n8n Automation', 'Gemini AI', 'BLoC'],
       'githubLink': 'https://github.com/rehamsaado/rego_smart_restaurant',
       'image': 'assets/images/rego_preview.png',
     },
@@ -87,7 +86,7 @@ class PortfolioConstants {
       'title': 'Bachelor of Informatics Engineering',
       'institution': 'University of Aleppo - Faculty of Informatics Engineering',
       'period': 'Graduated',
-      'details': 'Core Focus: Software Engineering, Data Structures, Problem Solving & Active Competitive Programming (130+ Python problems solved on Codeforces).',
+      'details': 'Core Focus: Software Engineering, Data Structures, Problem Solving & Competitive Programming in Python.',
     },
     {
       'title': 'CI/CD & DevOps Workflow',

@@ -24,19 +24,13 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
     }
   }
 
-  // دالة مخصصة لفتح البريد الإلكتروني فوراً عند الضغط على Get In Touch
-  Future<void> _sendEmail() async {
-    final Uri emailUri = Uri(
-      scheme: 'mailto',
-      path: PortfolioConstants.email,
-      queryParameters: {
-        'subject': 'Inquiry regarding Flutter Development Services',
-      },
-    );
-    if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri);
+  // دالة فتح محادثة WhatsApp مباشرة عند الضغط على Get In Touch
+  Future<void> _contactViaWhatsApp() async {
+    final Uri whatsappUri = Uri.parse('https://wa.me/963952527682');
+    if (await canLaunchUrl(whatsappUri)) {
+      await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
     } else {
-      debugPrint('Could not launch email client');
+      await launchUrl(whatsappUri);
     }
   }
 
@@ -194,7 +188,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
   Widget _buildSecondaryButton(BuildContext context) {
     return OutlinedButton(
-      onPressed: _sendEmail,
+      onPressed: _contactViaWhatsApp,
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
         side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
