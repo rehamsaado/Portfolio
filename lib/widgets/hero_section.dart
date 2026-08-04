@@ -14,7 +14,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
-  // دالة مخصصة لفتح روابط الإنترنت وتحميل الـ CV
+  // 1. دالة مخصصة لفتح روابط الإنترنت وتحميل الـ CV
   Future<void> _launchURL(String urlString) async {
     final Uri url = Uri.parse(urlString);
     if (await canLaunchUrl(url)) {
@@ -24,8 +24,8 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
     }
   }
 
-  // دالة فتح محادثة WhatsApp مباشرة عند الضغط على Get In Touch
-  Future<void> _contactViaWhatsApp() async {
+  // 2. دالة فتح الواتساب مباشرة عبر الرقم
+  Future<void> _launchWhatsApp() async {
     final Uri whatsappUri = Uri.parse('https://wa.me/963952527682');
     if (await canLaunchUrl(whatsappUri)) {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
@@ -33,6 +33,8 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
       await launchUrl(whatsappUri);
     }
   }
+
+  // 3. دالة البريد الإلكتروني (اختيارية للـ Fallback)
 
   @override
   void initState() {
@@ -188,14 +190,14 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
   Widget _buildSecondaryButton(BuildContext context) {
     return OutlinedButton(
-      onPressed: _contactViaWhatsApp,
+      onPressed: _launchWhatsApp, // تم ربطه بالواتساب فوراً 💬
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
         side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       ),
       child: const Text(
-        'Get In Touch',
+        'Get In Touch (WhatsApp)',
         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
