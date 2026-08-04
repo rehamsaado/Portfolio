@@ -42,6 +42,7 @@ class PortfolioConstants {
       'description': 'Integrating dynamic AI capabilities (Gemini AI, Voice Interaction, Speech-to-Text) directly into mobile applications.',
       'icon': 'smart_toy',
     },
+
     {
       'title': 'Backend Integration & Realtime Databases',
       'description': 'Integrating RESTful APIs, Supabase real-time streaming, Storage, and Row Level Security (RLS).',
