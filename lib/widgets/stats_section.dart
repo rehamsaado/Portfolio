@@ -33,25 +33,31 @@ class _StatsSectionState extends State<StatsSection> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final isDesktop = size.width > 900;
+    final isMobile = size.width < 600;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? size.width * 0.1 : 24,
+        horizontal: isDesktop ? size.width * 0.1 : 16,
         vertical: 40,
       ),
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {
           return Wrap(
-            spacing: 24,
-            runSpacing: 24,
+            spacing: isMobile ? 12 : 24,
+            runSpacing: isMobile ? 12 : 24,
             alignment: WrapAlignment.center,
             children: PortfolioConstants.stats.map((stat) {
+              // حساب العرض الديناميكي لشاشات الجوال والشاشات الكبيرة
+              final cardWidth = isDesktop
+                  ? (size.width * 0.8 - 72) / 4
+                  : (size.width - 32 - (isMobile ? 12 : 24)) / 2;
+
               return Container(
-                width: isDesktop ? (size.width * 0.8 - 72) / 4 : (size.width - 72) / 2,
-                constraints: const BoxConstraints(minHeight: 120),
-                padding: const EdgeInsets.all(24),
+                width: cardWidth,
+                constraints: BoxConstraints(minHeight: isMobile ? 100 : 120),
+                padding: EdgeInsets.all(isMobile ? 14 : 20),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(20),
@@ -62,28 +68,34 @@ class _StatsSectionState extends State<StatsSection> with SingleTickerProviderSt
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ShaderMask(
-                      shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Color(0xff8a2be2), Color(0xff00f5d4)],
-                      ).createShader(bounds),
-                      child: Opacity(
-                        opacity: _animation.value,
-                        child: Text(
-                          stat['number']!,
-                          style: const TextStyle(
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                    // تم إضافة FittedBox لتصغير حجم النص تلقائياً ومنع انقسام الكلمات
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [Color(0xff8a2be2), Color(0xff00f5d4)],
+                        ).createShader(bounds),
+                        child: Opacity(
+                          opacity: _animation.value,
+                          child: Text(
+                            stat['number']!,
+                            style: TextStyle(
+                              fontSize: isMobile ? 24 : 32, // حجم مرن للخط
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     Text(
                       stat['label']!,
                       textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: isMobile ? 12 : 14,
                         color: Colors.white.withValues(alpha: 0.6),
                         fontWeight: FontWeight.w500,
                       ),

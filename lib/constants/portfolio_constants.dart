@@ -30,7 +30,7 @@ class PortfolioConstants {
     {'name': 'Problem Solving & Logic (Codeforces / Python)', 'level': 85},
   ];
 
-  // 5. Freelance Professional Services (ماذا أقدم)
+  // 5. Freelance Professional Services
   static const List<Map<String, dynamic>> services = [
     {
       'title': 'Cross-Platform Mobile App Development',
@@ -57,8 +57,9 @@ class PortfolioConstants {
       'architecture': 'Clean Architecture (Multi-app Ecosystem) adhering to strict SOLID principles and Repository Pattern.',
       'stateManagement': 'BLoC / Cubit for synchronizing ordering states and real-time backend updates.',
       'techUsed': ['Flutter', 'Supabase (RLS)', 'n8n Automation', 'Gemini AI', 'BLoC'],
-      'githubLink': 'https://github.com/rehamsaado/rego_smart_restaurant',
-      'image': 'assets/images/rego_preview.png',
+      'githubLink': 'https://github.com/rehamsaado/Restaurant-Management-Ecosystem',
+      // 'demoLink': 'https://youtube.com/watch?v=xxxxxx', // ضعي رابط فيديو الديمو هنا
+       'image': 'assets/images/rego_preview.png',
     },
     {
       'title': 'Swift Chat (Real-time Social & Messaging Platform)',
@@ -67,6 +68,7 @@ class PortfolioConstants {
       'stateManagement': 'BLoC for predictable state transitions and stream handlers.',
       'techUsed': ['Flutter', 'Supabase Streams', 'PostgreSQL', 'RLS', 'BLoC'],
       'githubLink': 'https://github.com/rehamsaado/swift_chat',
+      'demoLink': 'https://www.linkedin.com/posts/reham-saado-990066306_flutter-supabase-cleanarchitecture-activity-7483565358302445568-Bk3Q?utm_source=share&utm_medium=member_android&rcm=ACoAAE32c_wBevW0FKZYGqtxk-7ko8JloCcIPfM',
       'image': 'assets/images/swift_chat_preview.png',
     },
     {
@@ -75,7 +77,8 @@ class PortfolioConstants {
       'architecture': '3-layer Clean Architecture with custom network interceptors using Dio.',
       'stateManagement': 'Cubit for high-performance reactive UI rendering.',
       'techUsed': ['Flutter', 'REST APIs', 'Dio', 'Cubit', 'Clean Architecture'],
-      'githubLink': 'https://github.com/rehamsaado/smart_school',
+      'githubLink': 'https://github.com/Hazem-bcs/smart-school',
+      // 'demoLink': '',
       'image': 'assets/images/smart_school_preview.png',
     },
   ];

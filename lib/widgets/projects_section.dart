@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/portfolio_constants.dart';
 
 class ProjectsSection extends StatelessWidget {
@@ -84,6 +84,14 @@ class ProjectRow extends StatefulWidget {
 class _ProjectRowState extends State<ProjectRow> {
   bool _isHovered = false;
 
+  Future<void> _launchURL(String? urlString) async {
+    if (urlString == null || urlString.isEmpty) return;
+    final Uri url = Uri.parse(urlString);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!widget.isDesktop) {
@@ -120,6 +128,9 @@ class _ProjectRowState extends State<ProjectRow> {
   }
 
   Widget _buildProjectDetails() {
+    final String? githubUrl = widget.project['githubLink'];
+    final String? demoUrl = widget.project['demoLink'];
+
     return Expanded(
       flex: 5,
       child: Column(
@@ -135,10 +146,14 @@ class _ProjectRowState extends State<ProjectRow> {
             style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.7), height: 1.6),
           ),
           const SizedBox(height: 12),
-          _buildFeatureRow(Icons.layers_rounded, widget.project['architecture']!),
-          const SizedBox(height: 8),
-          _buildFeatureRow(Icons.alt_route_rounded, widget.project['stateManagement']!),
-          const SizedBox(height: 24),
+          if (widget.project['architecture'] != null) ...[
+            _buildFeatureRow(Icons.layers_rounded, widget.project['architecture']!),
+            const SizedBox(height: 8),
+          ],
+          if (widget.project['stateManagement'] != null) ...[
+            _buildFeatureRow(Icons.alt_route_rounded, widget.project['stateManagement']!),
+            const SizedBox(height: 24),
+          ],
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -157,6 +172,8 @@ class _ProjectRowState extends State<ProjectRow> {
               );
             }).toList(),
           ),
+          const SizedBox(height: 28),
+          _buildActionButtons(githubUrl, demoUrl),
         ],
       ),
     );
@@ -203,7 +220,46 @@ class _ProjectRowState extends State<ProjectRow> {
     );
   }
 
+  Widget _buildActionButtons(String? githubUrl, String? demoUrl) {
+    final bool hasGithub = githubUrl != null && githubUrl.isNotEmpty;
+    final bool hasDemo = demoUrl != null && demoUrl.isNotEmpty;
+
+    if (!hasGithub && !hasDemo) return const SizedBox.shrink();
+
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [
+        if (hasGithub)
+          OutlinedButton.icon(
+            onPressed: () => _launchURL(githubUrl),
+            icon: const Icon(Icons.code_rounded, size: 18, color: Colors.white),
+            label: const Text('Source Code', style: TextStyle(color: Colors.white)),
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            ),
+          ),
+        if (hasDemo)
+          ElevatedButton.icon(
+            onPressed: () => _launchURL(demoUrl),
+            icon: const Icon(Icons.play_circle_fill_rounded, size: 20, color: Colors.black),
+            label: const Text('Watch Demo', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff00f5d4),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            ),
+          ),
+      ],
+    );
+  }
+
   Widget _buildMobileLayout() {
+    final String? githubUrl = widget.project['githubLink'];
+    final String? demoUrl = widget.project['demoLink'];
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -229,10 +285,14 @@ class _ProjectRowState extends State<ProjectRow> {
           const SizedBox(height: 12),
           Text(widget.project['description']!, style: TextStyle(fontSize: 14, color: Colors.white.withValues(alpha: 0.7), height: 1.5)),
           const SizedBox(height: 16),
-          _buildFeatureRow(Icons.layers_rounded, widget.project['architecture']!),
-          const SizedBox(height: 8),
-          _buildFeatureRow(Icons.alt_route_rounded, widget.project['stateManagement']!),
-          const SizedBox(height: 20),
+          if (widget.project['architecture'] != null) ...[
+            _buildFeatureRow(Icons.layers_rounded, widget.project['architecture']!),
+            const SizedBox(height: 8),
+          ],
+          if (widget.project['stateManagement'] != null) ...[
+            _buildFeatureRow(Icons.alt_route_rounded, widget.project['stateManagement']!),
+            const SizedBox(height: 20),
+          ],
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -247,6 +307,8 @@ class _ProjectRowState extends State<ProjectRow> {
               );
             }).toList(),
           ),
+          const SizedBox(height: 24),
+          _buildActionButtons(githubUrl, demoUrl),
         ],
       ),
     );
